@@ -1,2 +1,3 @@
 <p>hand works!</p>
-<div>{{ cardsInHand }}</div>
+<div>{{ cardHand.length }}</div>
+<button *ngFor="let cardInstance of cardHand" [ngClass]="cardInstance.color" (click)="OnPlayCard(cardInstance)" [disabled]="!cardInstance.playable">{{ cardInstance.face }}</button>

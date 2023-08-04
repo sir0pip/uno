@@ -9,6 +9,8 @@ import { DeckComponent } from './deck-area/deck/deck.component';
 import { DiscardComponent } from './deck-area/discard/discard.component';
 import { DrawCardComponent } from './play-area/draw-card/draw-card.component';
 import { HandComponent } from './play-area/hand/hand.component';
+import { FormsModule } from '@angular/forms';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,13 @@ import { HandComponent } from './play-area/hand/hand.component';
     DeckComponent,
     DiscardComponent,
     DrawCardComponent,
-    HandComponent
+    HandComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

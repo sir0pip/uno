@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Card } from 'src/models/card.model';
 
 @Component({
   selector: 'app-hand',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./hand.component.css']
 })
 export class HandComponent {
-  cardsInHand: number = 0;
+  cardHand: Card[] = [ new Card("1", "red"), new Card("6", "blue"), new Card("S", "yellow"), new Card("+2", "green")];
+
+  OnPlayCard(card: Card) {
+    let cardIndex: number = this.cardHand.indexOf(card);
+
+    this.cardHand.splice(cardIndex, 1);
+  }
 }
