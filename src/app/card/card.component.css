@@ -1,23 +1,23 @@
-div.red {
+button {
+    width: 40;
+}
+
+button.red {
     background-color: red;
-    width: 20;
     color: white;
 }
 
-div.blue {
+button.blue {
     background-color: blue;
-    width: 20;
     color: white;
 }
 
-div.yellow {
+button.yellow {
     background-color: yellow;
-    width: 20;
     color: black;
 }
 
-div.green {
+button.green {
     background-color: green;
-    width: 20;
     color: white;
 }

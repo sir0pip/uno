@@ -1,12 +1,12 @@
 export class Card {
     public face: string;
     public color: string;
-    public playable: boolean;
+    public active: boolean;
 
     constructor (face: string, color: string) {
         this.face = face;
         this.color = color;
-        this.playable = false;
+        this.active = true;
     }
 
     DoAction() {
