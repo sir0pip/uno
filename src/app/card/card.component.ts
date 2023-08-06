@@ -7,14 +7,14 @@ import { Card } from 'src/models/card.model';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  @Output() cardPlayed: EventEmitter<Card> = new EventEmitter<Card>();
+  @Output() cardActivated: EventEmitter<Card> = new EventEmitter<Card>();
   @Input("displayCard") card!: Card;
 
   ngOnInit() {
 
   }
 
-  OnPlayCard() {
-    this.cardPlayed.emit(this.card);
+  OnActivateCard() {
+    this.cardActivated.emit(this.card);
   }
 }

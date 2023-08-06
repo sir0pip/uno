@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Card } from 'src/models/card.model';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-draw-card',
@@ -8,11 +10,14 @@ import { Component } from '@angular/core';
 export class DrawCardComponent {
   allowDraw: boolean  = true;
 
+  constructor(private userService: UserService) {}
+
   CanDraw() {
     return this.allowDraw;
   }
 
   OnDrawCard() {
-    this.allowDraw = false;
+    this.userService.AddCard(new Card(10, "W", "black"));
+    //this.allowDraw = false;
   }
 }

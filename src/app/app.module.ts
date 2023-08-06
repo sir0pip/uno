@@ -11,6 +11,7 @@ import { DrawCardComponent } from './play-area/draw-card/draw-card.component';
 import { HandComponent } from './play-area/hand/hand.component';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from './card/card.component';
+import { UserService } from 'src/services/user.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { CardComponent } from './card/card.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
