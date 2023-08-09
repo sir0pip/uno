@@ -66,16 +66,19 @@ export class GameStateService {
         this.drawDeck.push(...new CardSet().cards);
         this.ShuffleDrawDeck();
         this.DealInitialCards();
+        this.activePlayer = 0;
         this.DiscardTopCard();
     }
 
     DrawCard() {
         if(this.drawDeck.length === 0) {
-            this.drawDeck = this.discardDeck;
-            this.discardDeck = [];
+            this.drawDeck.push(...this.discardDeck);
+            this.discardDeck.length = 0;
             this.ShuffleDrawDeck();
         }
         let card = this.drawDeck.pop();
+        if(card)
+            this.players[this.activePlayer].cardHand.push();
         return card;
     }
 
@@ -86,7 +89,7 @@ export class GameStateService {
                 this.activePlayer = 0;
         }
         else {
-            this.activePlayer++;
+            this.activePlayer--;
             if(this.activePlayer < 0)
                 this.activePlayer = this.players.length-1;
         }
@@ -95,9 +98,10 @@ export class GameStateService {
     SetActiveCards(player: Player) {
         let activeCardCount: number = 0;
         let drawFourWild: Card[] = [];
-        console.log("Checking active cards");
         player.cardHand.forEach((card) => {
             card.active = false;
+            if(player !== this.players[this.activePlayer])
+                return;
             if(card.face !== CardFaceEnum.WildDrawFour && (card.face === this.activeFace || card.color === this.activeColor || card.face === CardFaceEnum.Wild)) {
                 card.active = true;
                 ++activeCardCount;
@@ -144,6 +148,7 @@ export class GameStateService {
     }
 
     PlayCard(card: Card) {
+        console.log("Player " + this.players[this.activePlayer].name + " is playing " + card.color + " " + card.face);
         this.discardDeck.push(card);
         this.activeColor = card.color === CardColorEnum.Black ? "" : card.color;
         this.activeFace = card.face;
@@ -152,5 +157,15 @@ export class GameStateService {
         this.players.forEach((player) => {
             this.SetActiveCards(player);
         });
+
+        // Autoplay for other players
+        if(this.activePlayer != 0) {
+            console.log("Autoplaying for player " + this.activePlayer);
+            let card2 = this.players[this.activePlayer].cardHand.pop();
+            if(!card2)
+                card2 = this.DrawCard();
+            if(card2)
+                this.PlayCard(card2);
+        }
     }
 }
