@@ -1,4 +1,6 @@
 <router-outlet>
+  <button (click)="StartNewGame()">Start New Game</button>
   <app-deck-area></app-deck-area>
   <app-play-area></app-play-area>
+  <div *ngFor="let playerIntance of players"><app-other-player [player]="playerIntance" *ngIf="playerIntance != player"></app-other-player></div>
 </router-outlet>

@@ -12,6 +12,7 @@ import { HandComponent } from './play-area/hand/hand.component';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from './card/card.component';
 import { UserService } from 'src/services/user.service';
+import { OtherPlayerComponent } from './other-player/other-player.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +23,15 @@ import { UserService } from 'src/services/user.service';
     DiscardComponent,
     DrawCardComponent,
     HandComponent,
-    CardComponent
+    CardComponent,
+    OtherPlayerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [UserService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

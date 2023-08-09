@@ -1,3 +1,3 @@
 <p>hand works!</p>
-<div>{{ user.hand.length }}</div>
-<app-card *ngFor="let cardInstance of user.hand" [displayCard]="cardInstance" (cardActivated)="onCardPlayed(cardInstance)"></app-card>
+<div>{{ player.cardHand.length }}</div>
+<app-card *ngFor="let cardInstance of player.cardHand" [displayCard]="cardInstance" (cardActivated)="onCardPlayed(cardInstance)"></app-card>

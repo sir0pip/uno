@@ -1,1 +1,1 @@
-<button [ngClass]="card.color" (click)="OnActivateCard()" [disabled]="!card.active">{{ card.face }}</button>
+<button *ngIf="card != null" [ngClass]="card.color" (click)="OnActivateCard()" [disabled]="!card.active">{{ card.face }}</button>

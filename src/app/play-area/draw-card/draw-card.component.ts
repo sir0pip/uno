@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Card } from 'src/models/card.model';
+import { GameStateService } from 'src/services/gameState.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -9,15 +10,18 @@ import { UserService } from 'src/services/user.service';
 })
 export class DrawCardComponent {
   allowDraw: boolean  = true;
+  drawDeck: Card[];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private gameStateService: GameStateService) {
+    this.drawDeck = gameStateService.drawDeck;
+  }
 
   CanDraw() {
     return this.allowDraw;
   }
 
   OnDrawCard() {
-    this.userService.AddCard(new Card(10, "W", "black"));
+    this.userService.DrawCard();
     //this.allowDraw = false;
   }
 }

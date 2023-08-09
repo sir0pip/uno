@@ -1,1 +1,5 @@
 <p>discard works!</p>
+<div>Discard Deck Count: {{ discardDeck.length }} </div>
+<div>Current Color: {{ gs.activeColor }}</div>
+<div>Current Face: {{ gs.activeFace }}</div>
+<app-card [displayCard]="discardDeck[discardDeck.length-1]" (cardActivated)="false"></app-card>

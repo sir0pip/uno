@@ -10,9 +10,7 @@ export class CardComponent implements OnInit {
   @Output() cardActivated: EventEmitter<Card> = new EventEmitter<Card>();
   @Input("displayCard") card!: Card;
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   OnActivateCard() {
     this.cardActivated.emit(this.card);
