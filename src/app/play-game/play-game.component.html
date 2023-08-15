@@ -1,0 +1,8 @@
+<p>play-game works!</p>
+<p><button *ngIf="game.gameName === '' && game.gameStarted === false" routerLink="/creategame">Create Game</button></p>
+<p><button *ngIf="game.gameName !== '' && game.gameStarted" (click)="ResetGame()">Reset Game</button></p>
+<div *ngIf="game.gameName !== '' && game.playerCount < game.maxPlayers && game.gameStarted === false"><button routerLink="/inviteplayer">Invite Player</button></div>
+<div *ngIf="game.gameName !== '' && game.gameStarted === false"><button (click)="StartGame()">Start Game</button></div>
+<app-deck-area></app-deck-area>
+<app-play-area></app-play-area>
+<div *ngFor="let playerIntance of game.players"><app-other-player [player]="playerIntance" *ngIf="playerIntance != user.player"></app-other-player></div>

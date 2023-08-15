@@ -8,6 +8,7 @@ import { CardFaceEnum } from "src/enums/cardFace.enum";
 
 @Injectable({ providedIn: "root"})
 export class GameStateService {
+    public gameName: string;
     public drawDeck: Card[];
     public discardDeck: Card[];
     public playerCount: number;
@@ -16,10 +17,13 @@ export class GameStateService {
     public directionOfPlay: string;
     public activeColor: string;
     public activeFace: string;
+    public maxPlayers: number;
+    public gameStarted: boolean;
 
     constructor() {
         this.drawDeck = [];
-        this.ShuffleDrawDeck();
+        //this.ShuffleDrawDeck();
+        this.gameStarted = false;
         this.discardDeck = [];
         this.playerCount = 0;
         this.players = [];
@@ -27,6 +31,8 @@ export class GameStateService {
         this.directionOfPlay = DirectionOfPlay.Forward;
         this.activeColor = CardColorEnum.Black;
         this.activeFace = CardFaceEnum.Wild;
+        this.gameName = "";
+        this.maxPlayers = 10;
     }
 
     ResetPlayerHands() {
@@ -60,14 +66,36 @@ export class GameStateService {
         }
     }
 
-    SetupNewGame() {
-        this.ResetPlayerHands();
+    ResetDrawDeck() {
         this.drawDeck.length = 0;
         this.drawDeck.push(...new CardSet().cards);
+    }
+
+    ShufflePlayerOrder() {
+        this.players.forEach((player) => {
+            player.turnOrder = Math.random();
+        });
+        this.players.sort((cardA, cardB) => cardA.turnOrder - cardB.turnOrder);
+    }
+
+    ResetGame() {
+        this.ResetPlayerHands();
+        this.ResetDrawDeck();
+        this.discardDeck.length = 0;
         this.ShuffleDrawDeck();
+        this.gameStarted = false;
+    }
+
+    SetupNewGame(name: string) {
+        this.gameName = name;
+        this.ResetGame();
+    }
+
+    StartNewGame() {
         this.DealInitialCards();
         this.activePlayer = 0;
         this.DiscardTopCard();
+        this.gameStarted = true;
     }
 
     DrawCard() {

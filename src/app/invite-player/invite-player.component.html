@@ -1,0 +1,4 @@
+<p>invite-player works!</p>
+New Player Name: <input type="text" [(ngModel)]="playerName">
+<button (click)="CreateNewPlayer()">Add Player</button>
+<div *ngIf="nameTaken">This name is taken.  Please specify a new player name.</div>

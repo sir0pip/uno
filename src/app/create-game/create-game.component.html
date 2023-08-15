@@ -1,0 +1,4 @@
+<p>create-game works!</p>
+New Game Name: <input type="text" [(ngModel)]="gameName">
+Player Name: <input type="text" [(ngModel)]="playerName">
+<button *ngIf="gameName !== '' && playerName !== ''" (click)="CreateNewGame()">Create New Game</button>
