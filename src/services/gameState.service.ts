@@ -5,6 +5,7 @@ import { DirectionOfPlay } from "../enums/directionOfPlay.enum";
 import { Player } from "../models/player.model";
 import { CardColorEnum } from "src/enums/cardColor.enum";
 import { CardFaceEnum } from "src/enums/cardFace.enum";
+import { UserService } from "./user.service";
 
 @Injectable({ providedIn: "root"})
 export class GameStateService {
@@ -14,6 +15,7 @@ export class GameStateService {
     public playerCount: number;
     public players: Player[];
     public activePlayer: number;
+    public localPlayer!: Player;
     public directionOfPlay: string;
     public activeColor: string;
     public activeFace: string;
@@ -75,7 +77,10 @@ export class GameStateService {
         this.players.forEach((player) => {
             player.turnOrder = Math.random();
         });
-        this.players.sort((cardA, cardB) => cardA.turnOrder - cardB.turnOrder);
+        this.players.sort((playerA, playerB) => playerA.turnOrder - playerB.turnOrder);
+        this.players.forEach((player) => {
+            console.log("Player " + player.name + " orderNum = " + player.turnOrder);
+        })
     }
 
     ResetGame() {
@@ -92,6 +97,7 @@ export class GameStateService {
     }
 
     StartNewGame() {
+        this.ShufflePlayerOrder();
         this.DealInitialCards();
         this.activePlayer = 0;
         this.DiscardTopCard();
@@ -176,7 +182,6 @@ export class GameStateService {
     }
 
     PlayCard(card: Card) {
-        console.log("Player " + this.players[this.activePlayer].name + " is playing " + card.color + " " + card.face);
         this.discardDeck.push(card);
         this.activeColor = card.color === CardColorEnum.Black ? "" : card.color;
         this.activeFace = card.face;
@@ -187,8 +192,8 @@ export class GameStateService {
         });
 
         // Autoplay for other players
-        if(this.activePlayer != 0) {
-            console.log("Autoplaying for player " + this.activePlayer);
+        if(this.players[this.activePlayer] !== this.localPlayer) {
+            console.log("Autoplaying for player " + this.players[this.activePlayer].name);
             let card2 = this.players[this.activePlayer].cardHand.pop();
             if(!card2)
                 card2 = this.DrawCard();

@@ -22,6 +22,7 @@ export class CreateGameComponent {
     this.gameStateService.SetupNewGame(this.gameName);
     this.gameStateService.players.push(new Player(this.playerName));
     this.userService.player = this.gameStateService.players[0];
+    this.gameStateService.localPlayer = this.gameStateService.players[0];
 
     this.router.navigate(["/"]);
   }
